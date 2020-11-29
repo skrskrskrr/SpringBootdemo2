@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="vue.min.js"></script>
+    <script src="axios.min.js"></script>
+    <title>发送get请求</title>
+    <script>
+        window.onload=function(){
+            new Vue({
+                el:'#app',
+                data:{
+                    users:{
+                        name:'',
+                        password:'',
+                        id:''
+                    }
+                },
+                methods:{
+                    //axios.get的发送参数有两种，两个ajax请求函数都可实现
+                    sendGetByStr(){
+                        //1.get通过直接发字符串拼接
+                        axios.get(`add?name=${this.users.name}&password=${this.users.password}`)
+                            .then(function (response) {
+                                alert("成功");
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
+
+                    },
+                    sendGetByObj(){
+                        //2.get通过params选项
+                        axios.get(`add?`,{
+                            params:{
+                                name:this.users.name,
+                                password:this.users.password
+                            }
+                        })
+                            .then(function (response) {
+                                console.log(response.data);
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
+
+                    },
+                    sendGetByUpdate(){
+                        //2.get通过params选项
+                        axios.get(`update?`,{
+                            params:{
+                                name:this.users.name,
+                                id:this.users.id
+                            }
+                        })
+                            .then(function (response) {
+                                console.log(response.data);
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
+
+                    },
+                    sendGetByDelete(){
+                        //2.get通过params选项
+                        axios.get(`delete?`,{
+                            params:{
+                                id:this.users.id
+                            }
+                        })
+                            .then(function (response) {
+                                console.log(response.data);
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
+
+                    }
+                }
+            });
+        }
+
+
+    </script>
+</head>
+<body>
+<div id="app">
+    <input type="text" :name="users.name" v-model="users.name" placeholder="姓名">
+    <input type="text" :password="users.password" v-model="users.password" placeholder="年龄">
+    <input type="text" :id="users.id" v-model="users.id" placeholder="id">
+    <button @click="sendGetByDelete">发送get请求</button>
+</div>
+
+</body>
+</html>

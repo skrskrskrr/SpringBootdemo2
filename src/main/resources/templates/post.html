@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="vue.min.js"></script>
+    <script src="axios.min.js"></script>
+    <title>发送post请求</title>
+    <script>
+        window.onload=function(){
+            new Vue({
+                el:'#app',
+                data:{
+                    users:{
+                        name:'lisi',
+                        password:'123'
+                    }
+                },
+                methods:{
+                    sendPsot(){
+                        axios.post('add', {
+                            name: 'lisi',
+                            password: '123456'
+                        })
+                            .then(function (response) {
+                                console.log(response);
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
+                    }
+
+                }
+            });
+        }
+
+
+    </script>
+</head>
+<body>
+<div id="app">
+    <input type="text" :name="users.name" v-model="users.name" placeholder="姓名">
+    <input type="text" :password="users.password" v-model="users.password" placeholder="年龄">
+    <button @click="sendPsot">发送get请求</button>
+</div>
+
+</body>
+</html>
